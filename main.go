@@ -1,8 +1,8 @@
 package main
 
 import (
-	"char-collect/collect"
 	"fmt"
+	"github.com/Beloslav13/char-collect/collect"
 )
 
 func getCollect(c collect.Collecter) {
@@ -11,7 +11,8 @@ func getCollect(c collect.Collecter) {
 	case *collect.Characters:
 		characters := c.(*collect.Characters)
 		fmt.Println(characters.Collect(12))
-
+	default:
+		fmt.Println("Default switch...")
 	}
 }
 
