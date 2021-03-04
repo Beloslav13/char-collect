@@ -2,14 +2,20 @@ package collect
 
 import "fmt"
 
-type BaseCharacters interface {
+// Collecter base interface
+type Collecter interface {
 	Collect(length int) string
 }
 
+// Characters ...
 type Characters struct {
 	ContinueChar []uint
 	AlphabetChar []uint
 	SpecialChar  []string
+}
+
+func (c *Characters) Collect(length int) string {
+	return fmt.Sprint("Method interface Collect ", length)
 }
 
 func getRange(start uint, end uint) (result []uint) {
@@ -20,10 +26,7 @@ func getRange(start uint, end uint) (result []uint) {
 	return result
 }
 
-func (c *Characters) Collect(length int) string {
-	return fmt.Sprint("Method interface Collect ", length)
-}
-
+// NewCharacters init object
 func NewCharacters() *Characters {
 	return &Characters{
 		ContinueChar: getRange(91, 97),

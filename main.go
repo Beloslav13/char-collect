@@ -5,23 +5,18 @@ import (
 	"fmt"
 )
 
-func main() {
-	//c := collect.NewCharacters()
-	var a collect.BaseCharacters
-	a = collect.NewCharacters()
-	fmt.Println(a.Collect(10))
-	fmt.Println("====")
-	//characters := collect.NewCharacters()
-	//fmt.Println(characters.ContinueChar)
-	//fmt.Println(characters.AlphabetChar)
-	//fmt.Println(characters.SpecialChar)
-	//
-	//fmt.Println(characters.Collect(10))
-	//
-	//stra := "the spice must flow"
-	//byts := []byte(stra)
-	//strb := string(byts)
-	//fmt.Println(byts)
-	//fmt.Println(strb)
+func getCollect(c collect.Collecter) {
+	//switch v := c.(type) {
+	switch c.(type) {
+	case *collect.Characters:
+		characters := c.(*collect.Characters)
+		fmt.Println(characters.Collect(12))
 
+	}
+}
+
+func main() {
+	var c collect.Collecter
+	c = collect.NewCharacters()
+	getCollect(c)
 }
