@@ -31,20 +31,20 @@ func (c *Characters) Collect(length int) (string, error) {
 	}
 	c.AllChar = append(c.AllChar, c.SpecialChar...)
 
-	if length <= 0 {
+	switch {
+	case length <= 0:
 		err := errors.New("length must be more than 0 but not more than 73")
 		return "", err
-	} else if length > 73 {
+	case length > 73:
 		err := errors.New("length must be less than 73")
 		return "", err
+	default:
+		rand.Seed(time.Now().UnixNano())
+		for i := range c.AllChar {
+			j := rand.Intn(i + 1)
+			c.AllChar[i], c.AllChar[j] = c.AllChar[j], c.AllChar[i]
+		}
 	}
-
-	rand.Seed(time.Now().UnixNano())
-	for i := range c.AllChar {
-		j := rand.Intn(i + 1)
-		c.AllChar[i], c.AllChar[j] = c.AllChar[j], c.AllChar[i]
-	}
-
 	result := strings.Join(c.AllChar[:length], "")
 
 	return result, nil
