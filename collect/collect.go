@@ -22,14 +22,7 @@ type Characters struct {
 }
 
 func (c *Characters) Collect(length int) (string, error) {
-	for _, v := range c.AlphabetChar {
-		n := sort.SearchInts(c.ContinueChar, v)
-		if n < len(c.ContinueChar) && c.ContinueChar[n] == v {
-			continue
-		}
-		c.AllChar = append(c.AllChar, string(byte(v)))
-	}
-	c.AllChar = append(c.AllChar, c.SpecialChar...)
+	c.fillAllChar()
 
 	switch {
 	case length <= 0:
@@ -45,9 +38,22 @@ func (c *Characters) Collect(length int) (string, error) {
 			c.AllChar[i], c.AllChar[j] = c.AllChar[j], c.AllChar[i]
 		}
 	}
+
 	result := strings.Join(c.AllChar[:length], "")
 
 	return result, nil
+}
+
+// fillAllChar fill field AllChar in Characters struct
+func (c *Characters) fillAllChar() {
+	for _, v := range c.AlphabetChar {
+		n := sort.SearchInts(c.ContinueChar, v)
+		if n < len(c.ContinueChar) && c.ContinueChar[n] == v {
+			continue
+		}
+		c.AllChar = append(c.AllChar, string(byte(v)))
+	}
+	c.AllChar = append(c.AllChar, c.SpecialChar...)
 }
 
 func getRange(start int, end int) (result []int) {
